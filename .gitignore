@@ -1,0 +1,6 @@
+dump/
+vis/
+data/
+weights/
+log.txt
+log_backup.txt
