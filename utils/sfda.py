@@ -49,7 +49,7 @@ class SFDA2:
     def _create_banks(self):
         
         if self.dump is not None:
-            path = os.path.join(self.config['dump_path'], self.config['dataset'], self.config['source'], f'{self.config['target']}_sfda_banks_{self.dump}.p')
+            path = os.path.join(self.config['dump_path'], self.config['dataset'], self.config['source'], f"{self.config['target']}_sfda_banks_{self.dump}.p")
             if os.path.exists(path):
                 self.banks = load(path)
                 return

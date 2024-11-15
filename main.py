@@ -10,13 +10,14 @@ import torch
 import torch.nn as nn
 
 from utils.data import create_loaders
-from utils.train import train_source, train_sfda2_old
+from utils.train import train_source, train_sfda2_old, train_g_sfda
 from utils.forget import sample_minimax_old, finetune_old, unsir, sample_minimax_continual
 from utils.utils import log_fa_ra, log, validate
 from utils.parser import parse_args
+from utils.apa import train_apa
+from utils.shot import train_shot, train_forget_shot
 
 import warnings
-
 
 warnings.filterwarnings("ignore") # Supress CUDNN
 
@@ -82,28 +83,29 @@ source_classifier.load_state_dict(torch.load(source_path, map_location=config['d
 
 
 if config['method'] == 'original':
-    target_classifier = train_sfda2_old(source_classifier, config, save="original")
+    target_classifier = train_shot(source_classifier, config)
+
+    # target_classifier = sfda_apa_u(source_classifier, config)
+    # target_classifier = train_sfda2_old(source_classifier, config, save="original")
 
 
 if config['method'] == 'retrain':
     source_retain_classifier = train_source(deepcopy(classifier), config, retain=True, save=False, smooth=False)
-    target_classifier = train_sfda2_old(source_retain_classifier, config, save="retrain")
-
+    target_classifier = train_shot(source_retain_classifier, config)
 
 if config['method'] == 'finetune':
-    path = f"{config['save_path']}/{config['dataset']}/{config['backbone']}_{config['source']}_{config['target']}_{config['forget_classes']}_original.pt"
-    target_classifier = deepcopy(classifier)
-    target_classifier.load_state_dict(torch.load(path, map_location=config['device']))
-    target_classifier = finetune_old(target_classifier, config)
-
+    target_classifier = train_shot(source_classifier, config)
+    config['epochs'] = 5
+    config['iter_per_epoch'] = 100
+    target_classifier = train_shot(target_classifier, config)
 
 if config['method'] == 'minimax':
-    target_classifier = sample_minimax_old(source_classifier, config, vis=config['vis'])
+    target_classifier = train_forget_shot(source_classifier, config)
 
 
 if config['method'] == 'unsir':
     source_classifier = unsir(source_classifier, config)
-    target_classifier = train_sfda2_old(source_classifier, config)
+    target_classifier = train_forget_shot(source_classifier, config)
 
 if config['method'] == 'minimax_continual':
     target_classifier = sample_minimax_old(source_classifier, config, vis=False)

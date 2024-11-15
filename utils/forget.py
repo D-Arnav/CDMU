@@ -334,7 +334,7 @@ def sample_minimax_old(source_classifier, config, vis=True):
             dataset.append((images[b], indices[b]))
     target_train_dl = DataLoader(dataset, batch_size, shuffle=True, num_workers=8)
     target_train_dl = ForeverDataIterator(target_train_dl)
-    
+        
     # Banks
     num_sample = len(target_train_dl.data_loader.dataset)
     feature_bank = torch.randn(num_sample, bottleneck)
@@ -344,19 +344,20 @@ def sample_minimax_old(source_classifier, config, vis=True):
     with torch.no_grad():
         source_classifier.train()
         for i in tqdm(range(len(target_train_dl)), desc="Creating Banks"):
-            images, indices = next(target_train_dl)
-            images = images.to(device)
-            logits, features = source_classifier(images)
-            norm_features = F.normalize(features, dim=1)
-            outputs = F.softmax(logits, dim=1)
-            pseudo_labels = torch.argmax(outputs, dim=1)
+            with torch.no_grad():
+                images, indices = next(target_train_dl)
+                images = images.to(device)
+                logits, features = source_classifier(images)
+                norm_features = F.normalize(features, dim=1)
+                outputs = F.softmax(logits, dim=1)
+                pseudo_labels = torch.argmax(outputs, dim=1)
 
-            feature_bank[indices] = norm_features.detach().clone().cpu()
-            output_bank[indices] = outputs.detach().clone().cpu()
-            pseudo_bank[indices] = pseudo_labels.detach().clone().cpu()
+                feature_bank[indices] = norm_features.detach().clone().cpu()
+                output_bank[indices] = outputs.detach().clone().cpu()
+                pseudo_bank[indices] = pseudo_labels.detach().clone().cpu()
 
     rho = torch.ones([config['num_classes']]).to(device) / config['num_classes']
-    cov = torch.zeros(config['num_classes'], bottleneck, bottleneck).to(device)
+    cov = torch.zeros(config['num_classes'], bottleneck, bottleneck).half().to(device)
     ave = torch.zeros(config['num_classes'], bottleneck).to(device)
     amount = torch.zeros(config['num_classes']).to(device)
 
@@ -416,13 +417,14 @@ def sample_minimax_old(source_classifier, config, vis=True):
             loss_ifa = alpha_1 * torch.mean(loss_ifa_)
 
             ## FD
-
-            mean_score = torch.stack([torch.mean(output_bank[pseudo_bank == i], dim=0) for i in range(config['num_classes'])])
+            mean_score  = torch.stack([torch.mean(output_bank[pseudo_bank == j], dim=0) for j in range(config['num_classes'])])
             mean_score[mean_score != mean_score] = 0.
             cov_weight = (mean_score @ mean_score.T) * (1.-torch.eye(config['num_classes']))
             cov1 = cov.view(config['num_classes'],-1).unsqueeze(1)
             cov0 = cov.view(config['num_classes'],-1).unsqueeze(0)
-            cov_distance = 1 - torch.sum((cov1*cov0),dim=2) / (torch.norm(cov1, dim=2) * torch.norm(cov0, dim=2) + 1e-12)
+            cov_sum = cov1 * cov0
+            cov_sum = cov_sum
+            cov_distance = 1 - torch.sum(cov_sum,dim=2) / (torch.norm(cov1, dim=2) * torch.norm(cov0, dim=2) + 1e-12)
             loss_fd = -torch.sum(cov_distance * cov_weight.to(device).detach()) / 2
 
             sfda_loss = loss_pos + loss_neg + (alpha_1 * loss_ifa) + (alpha_2 * loss_fd)
@@ -432,8 +434,23 @@ def sample_minimax_old(source_classifier, config, vis=True):
             labels = logits.detach().clone().to(config['device'])
             labels[:, config['forget_classes']] = -float('inf')
             labels = F.softmax(labels, dim=1)
-            mu_loss = F.cross_entropy(logits, labels)
-    
+            outputs = F.softmax(logits, dim=1)
+            
+            # Cross Ent
+            # mu_loss = F.cross_entropy(outputs, labels)
+
+            # Hellinger
+            # mu_loss = ((outputs**.5 - labels**.5) ** 2).sum()**.5 / 2**.5
+
+            # JS Divergence
+            # mu_loss = 0.5 * (F.kl_div(labels.log(), outputs) + F.kl_div(outputs.log(), labels))
+
+            # L2 Dist
+            # mu_loss = 10 * ((outputs - labels) ** 2).sum() 
+
+            # TV Dist / L1 Dist
+            # mu_loss = 0.5 * torch.abs(outputs - labels).sum()
+            
             loss = sfda_loss + mu_loss * config['minimax_alpha']
             
             loss_val += loss.item()

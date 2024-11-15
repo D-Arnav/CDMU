@@ -1,73 +1,104 @@
-source activate MUenv
+#!bin/bash
 
 # OfficeHome
+# for seed in 1 2; do
+#     python main.py --dataset OfficeHome --source Art --target Clipart --method retrain --fast_train --seed "$seed"
+#     python main.py --dataset OfficeHome --source Art --target Product --method retrain --fast_train --seed "$seed"
+#     python main.py --dataset OfficeHome --source Art --target Real_World --method retrain --fast_train --seed "$seed"
+#     python main.py --dataset OfficeHome --source Clipart --target Art --method retrain --fast_train --seed "$seed"
+#     python main.py --dataset OfficeHome --source Clipart --target Product --method retrain --fast_train --seed "$seed"
+#     python main.py --dataset OfficeHome --source Clipart --target Real_World --method retrain --fast_train --seed "$seed"
+#     python main.py --dataset OfficeHome --source Product --target Art --method retrain --fast_train --seed "$seed"
+#     python main.py --dataset OfficeHome --source Product --target Clipart --method retrain --fast_train --seed "$seed"
+#     python main.py --dataset OfficeHome --source Product --target Real_World --method retrain --fast_train --seed "$seed"
+#     python main.py --dataset OfficeHome --source Real_World --target Art --method retrain --fast_train --seed "$seed"
+#     python main.py --dataset OfficeHome --source Real_World --target Clipart --method retrain --fast_train --seed "$seed"
+#     python main.py --dataset OfficeHome --source Real_World --target Product --method retrain --fast_train --seed "$seed"
+# done
 
-# python main.py --dataset OfficeHome --source Art --target Clipart --method minimax
-# python main.py --dataset OfficeHome --source Art --target Product --method minimax
-# python main.py --dataset OfficeHome --source Art --target Real_World --method minimax
-# python main.py --dataset OfficeHome --source Clipart --target Art --method minimax
-# python main.py --dataset OfficeHome --source Clipart --target Product --method minimax
-# python main.py --dataset OfficeHome --source Clipart --target Real_World --method minimax
-# python main.py --dataset OfficeHome --source Product --target Art --method minimax
-# python main.py --dataset OfficeHome --source Product --target Clipart --method minimax
-# python main.py --dataset OfficeHome --source Product --target Real_World --method minimax
-# python main.py --dataset OfficeHome --source Real_World --target Art --method minimax
-# python main.py --dataset OfficeHome --source Real_World --target Clipart --method minimax
-# python main.py --dataset OfficeHome --source Real_World --target Product --method minimax
-  
+for seed in 2; do
+    python main.py --dataset OfficeHome --source Art --target Clipart --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Art --target Product --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Art --target Real_World --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Art --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Product --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Real_World --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Art --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Clipart --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Real_World --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Art --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Clipart --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Product --method unsir --fast_train --seed "$seed"
+done
 
-# python main.py --dataset OfficeHome --source Art --target Clipart --method finetune
-# python main.py --dataset OfficeHome --source Art --target Product --method finetune
-# python main.py --dataset OfficeHome --source Art --target Real_World --method finetune
-# python main.py --dataset OfficeHome --source Clipart --target Art --method finetune
-# python main.py --dataset OfficeHome --source Clipart --target Product --method finetune
-# python main.py --dataset OfficeHome --source Clipart --target Real_World --method finetune
-# python main.py --dataset OfficeHome --source Product --target Art --method finetune
-# python main.py --dataset OfficeHome --source Product --target Clipart --method finetune
-# python main.py --dataset OfficeHome --source Product --target Real_World --method finetune
-# python main.py --dataset OfficeHome --source Real_World --target Art --method finetune
-# python main.py --dataset OfficeHome --source Real_World --target Clipart --method finetune
-# python main.py --dataset OfficeHome --source Real_World --target Product --method finetune
-  
-# python main.py --dataset OfficeHome --source Art --target Clipart --method original
-# python main.py --dataset OfficeHome --source Art --target Product --method original
-# python main.py --dataset OfficeHome --source Art --target Real_World --method original
-# python main.py --dataset OfficeHome --source Clipart --target Art --method original
-# python main.py --dataset OfficeHome --source Clipart --target Product --method original
-# python main.py --dataset OfficeHome --source Clipart --target Real_World --method original
-# python main.py --dataset OfficeHome --source Product --target Art --method original
-# python main.py --dataset OfficeHome --source Product --target Clipart --method original
-# python main.py --dataset OfficeHome --source Product --target Real_World --method original
-# python main.py --dataset OfficeHome --source Real_World --target Art --method original
-# python main.py --dataset OfficeHome --source Real_World --target Clipart --method original
-# python main.py --dataset OfficeHome --source Real_World --target Product --method original
-  
-# python main.py --dataset OfficeHome --source Art --target Clipart --method retrain
-# python main.py --dataset OfficeHome --source Art --target Product --method retrain
-# python main.py --dataset OfficeHome --source Art --target Real_World --method retrain
-# python main.py --dataset OfficeHome --source Clipart --target Art --method retrain
-# python main.py --dataset OfficeHome --source Clipart --target Product --method retrain
-# python main.py --dataset OfficeHome --source Clipart --target Real_World --method retrain
-# python main.py --dataset OfficeHome --source Product --target Art --method retrain
-# python main.py --dataset OfficeHome --source Product --target Clipart --method retrain
-# python main.py --dataset OfficeHome --source Product --target Real_World --method retrain
-# python main.py --dataset OfficeHome --source Real_World --target Art --method retrain
-# python main.py --dataset OfficeHome --source Real_World --target Clipart --method retrain
-# python main.py --dataset OfficeHome --source Real_World --target Product --method retrain
-  
-# python main.py --dataset OfficeHome --source Art --target Clipart --method unsir
-# python main.py --dataset OfficeHome --source Art --target Product --method unsir
-# python main.py --dataset OfficeHome --source Art --target Real_World --method unsir
-# python main.py --dataset OfficeHome --source Clipart --target Art --method unsir
-# python main.py --dataset OfficeHome --source Clipart --target Product --method unsir
-# python main.py --dataset OfficeHome --source Clipart --target Real_World --method unsir
-# python main.py --dataset OfficeHome --source Product --target Art --method unsir
-# python main.py --dataset OfficeHome --source Product --target Clipart --method unsir
-# python main.py --dataset OfficeHome --source Product --target Real_World --method unsir
-# python main.py --dataset OfficeHome --source Real_World --target Art --method unsir
-# python main.py --dataset OfficeHome --source Real_World --target Clipart --method unsir
-# python main.py --dataset OfficeHome --source Real_World --target Product --method unsir
-  
+for seed in 3; do
+    python main.py --dataset OfficeHome --source Art --target Clipart --method minimax --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Art --target Product --method minimax --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Art --target Real_World --method minimax --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Art --method minimax --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Product --method minimax --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Real_World --method minimax --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Art --method minimax --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Clipart --method minimax --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Real_World --method minimax --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Art --method minimax --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Clipart --method minimax --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Product --method minimax --fast_train --seed "$seed"
+    
+
+    python main.py --dataset OfficeHome --source Art --target Clipart --method finetune --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Art --target Product --method finetune --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Art --target Real_World --method finetune --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Art --method finetune --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Product --method finetune --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Real_World --method finetune --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Art --method finetune --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Clipart --method finetune --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Real_World --method finetune --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Art --method finetune --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Clipart --method finetune --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Product --method finetune --fast_train --seed "$seed"
+    
+    python main.py --dataset OfficeHome --source Art --target Clipart --method original --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Art --target Product --method original --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Art --target Real_World --method original --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Art --method original --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Product --method original --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Real_World --method original --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Art --method original --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Clipart --method original --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Real_World --method original --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Art --method original --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Clipart --method original --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Product --method original --fast_train --seed "$seed"
+    
+    python main.py --dataset OfficeHome --source Art --target Clipart --method retrain --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Art --target Product --method retrain --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Art --target Real_World --method retrain --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Art --method retrain --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Product --method retrain --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Real_World --method retrain --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Art --method retrain --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Clipart --method retrain --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Real_World --method retrain --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Art --method retrain --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Clipart --method retrain --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Product --method retrain --fast_train --seed "$seed"
+    
+    python main.py --dataset OfficeHome --source Art --target Clipart --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Art --target Product --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Art --target Real_World --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Art --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Product --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Clipart --target Real_World --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Art --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Clipart --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Product --target Real_World --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Art --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Clipart --method unsir --fast_train --seed "$seed"
+    python main.py --dataset OfficeHome --source Real_World --target Product --method unsir --fast_train --seed "$seed"
+done
+
 # Office31
   
 # python main.py --dataset Office31 --source amazon --target dslr --method minimax
@@ -107,13 +138,13 @@ source activate MUenv
 
 # DomainNet S→P C→S P→C P→R R→S R→C R→P 
 
-# python main.py --dataset DomainNet --source sketch --target painting --method minimax --fast_train --epochs 20
-# python main.py --dataset DomainNet --source clipart --target sketch --method minimax --fast_train --epochs 20
-# python main.py --dataset DomainNet --source painting --target clipart --method minimax --fast_train --epochs 20
-# python main.py --dataset DomainNet --source painting --target real --method minimax --fast_train --epochs 20
-# python main.py --dataset DomainNet --source real --target sketch --method minimax --fast_train --epochs 20
-# python main.py --dataset DomainNet --source real --target clipart --method minimax --fast_train --epochs 20
-# python main.py --dataset DomainNet --source real --target painting --method minimax --fast_train --epochs 20
+# python main.py --dataset DomainNet --source sketch --target painting --method minimax --batch 24
+# python main.py --dataset DomainNet --source clipart --target sketch --method minimax --batch 24
+# python main.py --dataset DomainNet --source painting --target clipart --method minimax --batch 24
+# python main.py --dataset DomainNet --source painting --target real --method minimax --batch 24
+# python main.py --dataset DomainNet --source real --target sketch --method minimax --batch 24
+# python main.py --dataset DomainNet --source real --target clipart --method minimax --batch 24
+# python main.py --dataset DomainNet --source real --target painting --method minimax --batch 24
 
 # python main.py --dataset DomainNet --source sketch --target painting --method original --fast_train --epochs 20
 # python main.py --dataset DomainNet --source clipart --target sketch --method original --fast_train --epochs 20
@@ -156,38 +187,38 @@ source activate MUenv
   
 # Ablation OfficeHome Different Alpha
 
-for alpha in 1.0 5.0 10.0 15.0; do
-    echo "$alpha"
-    printf "Using Alpha = $alpha\n" >> log.txt
-    python main.py --dataset OfficeHome --source Art --target Clipart --method minimax --alpha "$alpha" --fast_train
-    python main.py --dataset OfficeHome --source Art --target Product --method minimax --alpha "$alpha" --fast_train
-    python main.py --dataset OfficeHome --source Art --target Real_World --method minimax --alpha "$alpha" --fast_train
-    python main.py --dataset OfficeHome --source Clipart --target Art --method minimax --alpha "$alpha" --fast_train
-    python main.py --dataset OfficeHome --source Clipart --target Product --method minimax --alpha "$alpha" --fast_train
-    python main.py --dataset OfficeHome --source Clipart --target Real_World --method minimax --alpha "$alpha" --fast_train
-    python main.py --dataset OfficeHome --source Product --target Art --method minimax --alpha "$alpha" --fast_train
-    python main.py --dataset OfficeHome --source Product --target Clipart --method minimax --alpha "$alpha" --fast_train
-    python main.py --dataset OfficeHome --source Product --target Real_World --method minimax --alpha "$alpha" --fast_train
-    python main.py --dataset OfficeHome --source Real_World --target Art --method minimax --alpha "$alpha" --fast_train
-    python main.py --dataset OfficeHome --source Real_World --target Clipart --method minimax --alpha "$alpha" --fast_train
-    python main.py --dataset OfficeHome --source Real_World --target Product --method minimax --alpha "$alpha" --fast_train
-done
+# for alpha in 1.0 5.0 10.0 15.0; do
+#     echo "$alpha"
+#     printf "Using Alpha = $alpha\n" >> log.txt
+#     python main.py --dataset OfficeHome --source Art --target Clipart --method minimax --alpha "$alpha" --fast_train
+#     python main.py --dataset OfficeHome --source Art --target Product --method minimax --alpha "$alpha" --fast_train
+#     python main.py --dataset OfficeHome --source Art --target Real_World --method minimax --alpha "$alpha" --fast_train
+#     python main.py --dataset OfficeHome --source Clipart --target Art --method minimax --alpha "$alpha" --fast_train
+#     python main.py --dataset OfficeHome --source Clipart --target Product --method minimax --alpha "$alpha" --fast_train
+#     python main.py --dataset OfficeHome --source Clipart --target Real_World --method minimax --alpha "$alpha" --fast_train
+#     python main.py --dataset OfficeHome --source Product --target Art --method minimax --alpha "$alpha" --fast_train
+#     python main.py --dataset OfficeHome --source Product --target Clipart --method minimax --alpha "$alpha" --fast_train
+#     python main.py --dataset OfficeHome --source Product --target Real_World --method minimax --alpha "$alpha" --fast_train
+#     python main.py --dataset OfficeHome --source Real_World --target Art --method minimax --alpha "$alpha" --fast_train
+#     python main.py --dataset OfficeHome --source Real_World --target Clipart --method minimax --alpha "$alpha" --fast_train
+#     python main.py --dataset OfficeHome --source Real_World --target Product --method minimax --alpha "$alpha" --fast_train
+# done
 
 # Ablation OfficeHome Different Num Adv
 
-for num_adv in 1 4 8 16; do
-    echo "$num_adv"
-    printf "Using $num_adv Adv\n" >> log.txt
-    python main.py --dataset OfficeHome --source Art --target Clipart --method minimax --num_adv "$num_adv" --fast_train
-    python main.py --dataset OfficeHome --source Art --target Product --method minimax --num_adv "$num_adv" --fast_train
-    python main.py --dataset OfficeHome --source Art --target Real_World --method minimax --num_adv "$num_adv" --fast_train
-    python main.py --dataset OfficeHome --source Clipart --target Art --method minimax --num_adv "$num_adv" --fast_train
-    python main.py --dataset OfficeHome --source Clipart --target Product --method minimax --num_adv "$num_adv" --fast_train
-    python main.py --dataset OfficeHome --source Clipart --target Real_World --method minimax --num_adv "$num_adv" --fast_train
-    python main.py --dataset OfficeHome --source Product --target Art --method minimax --num_adv "$num_adv" --fast_train
-    python main.py --dataset OfficeHome --source Product --target Clipart --method minimax --num_adv "$num_adv" --fast_train
-    python main.py --dataset OfficeHome --source Product --target Real_World --method minimax --num_adv "$num_adv" --fast_train
-    python main.py --dataset OfficeHome --source Real_World --target Art --method minimax --num_adv "$num_adv" --fast_train
-    python main.py --dataset OfficeHome --source Real_World --target Clipart --method minimax --num_adv "$num_adv" --fast_train
-    python main.py --dataset OfficeHome --source Real_World --target Product --method minimax --num_adv "$num_adv" --fast_train
-done
+# for num_adv in 1 4 8 16; do
+#     echo "$num_adv"
+#     printf "Using $num_adv Adv\n" >> log.txt
+#     python main.py --dataset OfficeHome --source Art --target Clipart --method minimax --num_adv "$num_adv" --fast_train
+#     python main.py --dataset OfficeHome --source Art --target Product --method minimax --num_adv "$num_adv" --fast_train
+#     python main.py --dataset OfficeHome --source Art --target Real_World --method minimax --num_adv "$num_adv" --fast_train
+#     python main.py --dataset OfficeHome --source Clipart --target Art --method minimax --num_adv "$num_adv" --fast_train
+#     python main.py --dataset OfficeHome --source Clipart --target Product --method minimax --num_adv "$num_adv" --fast_train
+#     python main.py --dataset OfficeHome --source Clipart --target Real_World --method minimax --num_adv "$num_adv" --fast_train
+#     python main.py --dataset OfficeHome --source Product --target Art --method minimax --num_adv "$num_adv" --fast_train
+#     python main.py --dataset OfficeHome --source Product --target Clipart --method minimax --num_adv "$num_adv" --fast_train
+#     python main.py --dataset OfficeHome --source Product --target Real_World --method minimax --num_adv "$num_adv" --fast_train
+#     python main.py --dataset OfficeHome --source Real_World --target Art --method minimax --num_adv "$num_adv" --fast_train
+#     python main.py --dataset OfficeHome --source Real_World --target Clipart --method minimax --num_adv "$num_adv" --fast_train
+#     python main.py --dataset OfficeHome --source Real_World --target Product --method minimax --num_adv "$num_adv" --fast_train
+# done

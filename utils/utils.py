@@ -275,3 +275,28 @@ def create_noisy_dl(classifier, reg_dl, config, num_reg=float('inf')):
     noisy_dl = DataLoader(samples, config['batch'], shuffle=True, num_workers=8, drop_last=True)
 
     return noisy_dl
+
+
+class Classifier_Mask(nn.Module):
+    def __init__(self, classifier, emb=256):
+        self.classifier = classifier
+        self.em = torch.nn.Embedding(2, emb)
+        self.mask = torch.empty(1, emb)
+
+    def forward(self, x, t, s=100, all_out=False):
+        if self.classifier.training:
+            out, fea = self.classifier(x)
+        else:
+            out = self.classifier(x)
+
+
+        t_ = torch.LongTensor([0]).cuda()
+        self.mask = nn.Sigmoid()(self.em(t_) * s)
+        t = torch.LongTensor([t]).cuda()
+        mask = nn.Sigmoid()(self.em(t) * s)
+        flg = torch.isnan(mask).sum()
+        if flg != 0:
+            print('nan occurs')
+        out = out * mask
+
+        return out, fea, self.mask

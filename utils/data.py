@@ -11,7 +11,7 @@ import torch
 from tqdm import tqdm
 
 from torchvision import transforms
-from torchvision.transforms import ToTensor, Normalize, CenterCrop
+from torchvision.transforms import ToTensor, Normalize, CenterCrop, RandomHorizontalFlip
 from torchvision.datasets import ImageFolder
 from torch.utils.data import Subset, DataLoader, ConcatDataset, random_split
 
@@ -19,7 +19,6 @@ from tllib.vision.transforms import ResizeImage
 from tllib.utils.data import ForeverDataIterator
 
 from utils.utils import dump, load
-
 
 def create_loaders(config):
     """
@@ -47,9 +46,9 @@ def create_loaders(config):
 
     target_retain_subset = get_subset(target_retain_set, config)
 
-    source_train_dataset, source_test_dataset = random_split(source_dataset, lengths=[config['split'], 1-config['split']])
-    source_retain_train_dataset, source_retain_test_dataset = random_split(source_retain_set, lengths=[config['split'], 1-config['split']])
-    target_retain_train_dataset, target_retain_test_dataset = random_split(target_retain_set, lengths=[config['split'], 1-config['split']])
+    source_train_dataset, source_test_dataset = random_split(source_dataset, lengths=[int(len(source_dataset) * config['split']), len(source_dataset) - int(len(source_dataset) * config['split'])])
+    source_retain_train_dataset, source_retain_test_dataset = random_split(source_retain_set, lengths=[int(len(source_retain_set) * config['split']), len(source_retain_set) - int(len(source_retain_set) * config['split'])])
+    target_retain_train_dataset, target_retain_test_dataset = random_split(target_retain_set, lengths=[int(len(target_retain_set) * config['split']), len(target_retain_set) - int(len(target_retain_set) * config['split'])])
 
     config['source_train_dl'] = DataLoader(source_train_dataset, config['batch'], shuffle=True, num_workers=config['workers'], drop_last=True)
     config['source_test_dl'] = DataLoader(source_test_dataset, config['batch'], shuffle=False, num_workers=config['workers'], drop_last=True)
@@ -72,7 +71,7 @@ def get_dataset(domain: str, config: dict, size=None):
     Returns dataset based on name
     """
 
-    torch.manual_seed(config['seed'])
+    torch.manual_seed(1)
 
     transform = get_transform()
 
@@ -96,10 +95,14 @@ def get_dataset(domain: str, config: dict, size=None):
     
     path = os.path.join(config['data_path'], config['dataset'], domain)        
     dataset = ImageFolder(root=path, transform=transform)
+    if config['dataset'] == 'DomainNet':
+        dataset = Subset(dataset, torch.randperm(len(dataset))[:34500])
     
     if size is not None:
         dataset = Subset(dataset, torch.arange(size))
     
+    torch.manual_seed(config['seed'])
+
     return dataset
 
 

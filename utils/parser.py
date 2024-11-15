@@ -8,7 +8,7 @@ def parse_args():
     parser.add_argument('--dump_path', type = str, default='./dump', help='Path to save the pickle dumps')
     parser.add_argument('--data_path', type=str, default='./data', help='Path to save the datasets')
     parser.add_argument('--vis_path', type=str, default='./vis', help='Path to save the visualizations')
-    parser.add_argument('--device', type=str, default='cuda:5', help='Device to train on')
+    parser.add_argument('--device', type=str, default='cuda', help='Device to train on')
     parser.add_argument('--seed', type = int, default=1, help = 'Random seed')
     parser.add_argument('--save', action='store_true', help='Save model')
     parser.add_argument('--backbone', type=str, default='vitb16', help='Options: "vitb16", "resnet50"')
